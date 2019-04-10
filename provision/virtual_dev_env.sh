@@ -92,6 +92,13 @@ install_app_deps() {
 }
 
 ###
+# Install NginX webserver
+install_nginx() {
+  echo "Installing NginX webserver ******************************************* "
+  sudo apt-get install -y nginx
+}
+
+###
 # Install DirEnv env values manager
 install_direnv() {
   echo "Installing DirEnv **************************************************** "
