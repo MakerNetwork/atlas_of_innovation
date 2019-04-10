@@ -1,0 +1,3 @@
+This file is used to preserve the /keep directory within the project CVS so the
+application can store temporary files wich that not tracked but require the
+existence of the directory.
