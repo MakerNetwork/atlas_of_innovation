@@ -92,15 +92,6 @@ install_app_deps() {
 }
 
 ###
-# Install AWS EB CLI
-install_awsebcli() {
-  echo "Installing CLI for Elastic Beanstalk ********************************* "
-  source /usr/local/bin/virtualenvwrapper.sh
-  workon atlas
-  pip install awsebcli --upgrade
-}
-
-###
 # Install DirEnv env values manager
 install_direnv() {
   echo "Installing DirEnv **************************************************** "
