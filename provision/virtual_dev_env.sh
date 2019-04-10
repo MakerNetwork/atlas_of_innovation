@@ -115,11 +115,14 @@ fetch_env_files() {
 add_command_alias() {
   echo "Include alias to manage Atlas **************************************** "
   echo -e "\n# Commands to help with Atlas management"
-  echo "alias atlas_run='python /vagrant/manage.py runserver 0.0.0.0:8000' " >> ~/.profile
-  echo "alias atlas_db_migrate='python /vagrant/manage.py migrate'" >> ~/.profile
-  echo "alias atlas_db_load='python /vagrant/manage.py loaddata governance_options ownership_options initial_database'" >> ~/.profile
-  echo "alias atlas_db_prepare='/vagrant/bin/db_prepare.sh'" >> ~/.profile
-  echo "alias atlas_db_reset='/vagrant/bin/db_reset.sh'" >> ~/.profile
+  echo "alias atlas-start='uwsgi --ini atlas.ini'" >> ~/.profile
+  echo "alias atlas-stop='uwsgi --stop ~/atlas-master.pid'" >> ~/.profile
+  echo "alias atlas-migrate='python ~/atlas_of_innovation/manage.py makemigrations && python ~/atlas_of_innovation/manage.py migrate'" >> ~/.profile
+  echo "alias atlas-assets-regenerate='python manage.py collectstatic --clear'" >> ~/.profile
+  echo "alias atlas-load-data='python ~/atlas_of_innovation/manage.py loaddata governance_options ownership_options initial_database'" >> ~/.profile
+  echo "alias atlas-force-quit='sudo pkill -f uwsgi -9'" >> ~/.profile
+  echo "alias atlas-db-prepare='/vagrant/bin/db_prepare.sh'" >> ~/.profile
+  echo "alias atlas-db-reset='/vagrant/bin/db_reset.sh'" >> ~/.profile
 }
 
 ###
