@@ -7,11 +7,10 @@ Vagrant.configure("2") do |config|
 
   # Forward ports
   [
-    8000, # Django
+    { guest: 80, host: 8000 } # Atlas
   ].each do |p|
-    config.vm.network :forwarded_port, guest: p, host: p, host_ip: '127.0.0.1'
+    config.vm.network :forwarded_port, guest: p[:guest], host: p[:host], host_ip: '127.0.0.1'
   end
-
 
   # Provider configuration
   config.vm.provider 'virtualbox' do |vb|
@@ -20,6 +19,10 @@ Vagrant.configure("2") do |config|
 
   # Sync folders
   config.vm.synced_folder '.', '/vagrant', type: 'virtualbox'
+
+  # Copy required sample configuration files
+  config.vm.provision "file", source: "./provision/sample/values.env", destination: "values.env"
+  config.vm.provision "file", source: "./provision/sample/nginx.conf", destination: "nginx.conf"
 
   # Machine initial provision
   config.vm.provision "shell", privileged: false, run: "once",
