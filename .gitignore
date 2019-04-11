@@ -6,6 +6,7 @@
 # Log files
 *.log
 log/
+!log/.keep
 
 # Temp files
 tmp/*
