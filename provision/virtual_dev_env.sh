@@ -103,7 +103,6 @@ fetch_nginx_conf() {
   echo 'Fetching basic nginx configuration *********************************** '
   sudo mv ~/nginx.conf /etc/nginx/sites-available/atlas.conf
   sudo ln -s /etc/nginx/sites-available/atlas.conf /etc/nginx/sites-enabled/atlas.conf
-  sudo nginx -s reload
 }
 
 ###
@@ -168,4 +167,3 @@ setup(){
 }
 
 setup "$@"
-echo "The virtual environment has been provisioned. Run 'vagrant reload'."
