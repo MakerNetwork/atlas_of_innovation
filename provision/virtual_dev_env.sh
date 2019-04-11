@@ -114,7 +114,7 @@ install_direnv() {
   curl -sSL https://github.com/direnv/direnv/releases/download/v2.18.2/direnv.linux-amd64 > ~/direnv
   sudo mv ~/direnv /usr/local/bin/direnv
   chmod +x /usr/local/bin/direnv
-  echo -e "\n#Hook direnv environment switcher"  >> ~/.bashrc
+  echo -e "\n# Hook direnv environment switcher"  >> ~/.bashrc
   echo -e "eval \"\$(direnv hook bash)\"\n" >> ~/.bashrc
 }
 
@@ -123,6 +123,9 @@ install_direnv() {
 fetch_env_files() {
   echo 'Fetching basic environment values ************************************ '
   sudo mv ~/values.env /vagrant/.envrc
+
+  echo -e "\n# Automatically allow changes to .envrc at login"  >> ~/.bashrc
+  echo -e "direnv allow /vagrant\n" >> ~/.bashrc
 }
 
 ###
