@@ -7,9 +7,9 @@ Vagrant.configure("2") do |config|
 
   # Forward ports
   [
-    { guest: 80, host: 8000 } # Atlas
+    { guest: 80, host: 8000 } # NginX
   ].each do |p|
-    config.vm.network :forwarded_port, guest: p[:guest], host: p[:host], host_ip: '127.0.0.1'
+    config.vm.network :forwarded_port, guest: p[:guest], host: p[:host]
   end
 
   # Provider configuration

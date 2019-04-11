@@ -69,10 +69,10 @@ set_virtual_env(){
   sudo -H pip3 install -U pip
   sudo -H pip3 install virtualenv virtualenvwrapper
 
-  mkdir ~/Python-Env
+  mkdir ~/python-env
 
   echo -e "\n# Set environment root directory" >> ~/.bashrc
-  echo "export WORKON_HOME=~/Python-Env" >> ~/.bashrc
+  echo "export WORKON_HOME=~/python-env" >> ~/.bashrc
   echo "export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3" >> ~/.bashrc
   echo "source /usr/local/bin/virtualenvwrapper.sh" >> ~/.bashrc
 }
@@ -81,13 +81,15 @@ set_virtual_env(){
 # Install app dependencies with pip
 install_app_deps() {
   echo "Installing app pip dependencies ************************************** "
-  export WORKON_HOME=~/Python-Env
+  export WORKON_HOME=~/python-env
   export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
   source /usr/local/bin/virtualenvwrapper.sh
   mkvirtualenv -a /vagrant -r /vagrant/requirements.txt atlas
 
   echo -e "\n# Load Python environment for Atlas" >> ~/.bashrc
   echo "workon atlas" >> ~/.bashrc
+
+  touch ~/log/atlas.log
 }
 
 ###
@@ -128,14 +130,32 @@ fetch_env_files() {
 }
 
 ###
+# Build TLSH library
+build_tlsh() {
+  echo 'Building and installing the TLSH library ***************************** '
+  sudo apt-get install -y cmake
+
+  curl -sSL https://github.com/trendmicro/tlsh/archive/3.11.0.tar.gz > tlsh.tar.gz
+  tar -xvzf tlsh.tar.gz
+  cd tlsh-3.11.0
+  ./make.sh
+  cd py_ext
+  python ./setup.py build
+  python ./setup.py install
+
+  rm -rf tlsh-3.11.0 tlsh.tar.gz
+  sudo apt-get remove -y cmake
+}
+
+###
 # Include some alias to work with Atlas
 add_command_alias() {
   echo "Include alias to manage Atlas **************************************** "
   echo -e "\n# Commands to help with Atlas management"
-  echo "alias atlas-start='uwsgi --ini atlas.ini'" >> ~/.bashrc
-  echo "alias atlas-stop='uwsgi --stop ~/atlas-master.pid'" >> ~/.bashrc
+  echo "alias atlas-start='uwsgi --ini /vagrant/atlas.ini'" >> ~/.bashrc
+  echo "alias atlas-stop='uwsgi --stop /vagrant/tmp/atlas-master.pid'" >> ~/.bashrc
   echo "alias atlas-migrate='python /vagrant/manage.py makemigrations && python /vagrant/manage.py migrate'" >> ~/.bashrc
-  echo "alias atlas-assets-regenerate='python manage.py collectstatic --clear'" >> ~/.bashrc
+  echo "alias atlas-assets-regenerate='python /vagrant/manage.py collectstatic --clear'" >> ~/.bashrc
   echo "alias atlas-load-data='python /vagrant/manage.py loaddata governance_options ownership_options initial_database'" >> ~/.bashrc
   echo "alias atlas-force-quit='sudo pkill -f uwsgi -9'" >> ~/.bashrc
   echo "alias atlas-db-prepare='/vagrant/bin/db_prepare.sh'" >> ~/.bashrc
@@ -162,6 +182,7 @@ setup(){
   fetch_nginx_conf
   install_direnv
   fetch_env_files
+  build_tlsh
   add_command_alias
   cleanup
 }
