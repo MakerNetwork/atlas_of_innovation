@@ -134,9 +134,9 @@ add_command_alias() {
   echo -e "\n# Commands to help with Atlas management"
   echo "alias atlas-start='uwsgi --ini atlas.ini'" >> ~/.bashrc
   echo "alias atlas-stop='uwsgi --stop ~/atlas-master.pid'" >> ~/.bashrc
-  echo "alias atlas-migrate='python ~/atlas_of_innovation/manage.py makemigrations && python ~/atlas_of_innovation/manage.py migrate'" >> ~/.bashrc
+  echo "alias atlas-migrate='python /vagrant/manage.py makemigrations && python /vagrant/manage.py migrate'" >> ~/.bashrc
   echo "alias atlas-assets-regenerate='python manage.py collectstatic --clear'" >> ~/.bashrc
-  echo "alias atlas-load-data='python ~/atlas_of_innovation/manage.py loaddata governance_options ownership_options initial_database'" >> ~/.bashrc
+  echo "alias atlas-load-data='python /vagrant/manage.py loaddata governance_options ownership_options initial_database'" >> ~/.bashrc
   echo "alias atlas-force-quit='sudo pkill -f uwsgi -9'" >> ~/.bashrc
   echo "alias atlas-db-prepare='/vagrant/bin/db_prepare.sh'" >> ~/.bashrc
   echo "alias atlas-db-reset='/vagrant/bin/db_reset.sh'" >> ~/.bashrc
