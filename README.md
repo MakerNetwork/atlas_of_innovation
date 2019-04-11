@@ -37,15 +37,15 @@ To join us, please email our team at anansegroup@gmail.com
 ## Steps to get ready with the project:
 - git clone https://github.com/AnanseGroup/atlas_of_innovation
 - install vagrant and virtualbox
-- on the project root run 'vagrant up'
-- run 'vagrant ssh'
-- run 'direnv allow'
-- run 'atlas_db_prepare'
-- run 'atlas_run'
+- on the project root run `vagrant up`
+- run `vagrant ssh`
+- run `atlas-assets-regenerate`
+- run `atlas-db-prepare`
+- run `atlas-start`
 - That's all, just check your http://localhost:8000 and you are ready.
 
 ## Steps for installing TLSH:
-We use TLSH as a way of detecting spaces that may be repeated in the DB, to build 
+We use TLSH as a way of detecting spaces that may be repeated in the DB, to build
 follow this steps:
 - You may need to install cmake ```sudo apt-get install cmake```
 - git clone https://github.com/trendmicro/tlsh.git
