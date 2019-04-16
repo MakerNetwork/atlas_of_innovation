@@ -105,6 +105,12 @@ fetch_nginx_conf() {
   echo 'Fetching basic nginx configuration *********************************** '
   sudo mv ~/nginx.conf /etc/nginx/sites-available/atlas.conf
   sudo ln -s /etc/nginx/sites-available/atlas.conf /etc/nginx/sites-enabled/atlas.conf
+
+  # This fixes NginX failing to start when the virtual machine boots under
+  # Vagrant. This is caused because some configuration files are not available
+  # then the service starts.
+  echo -e "\n# Fix for NginX start fail under Vagrant" >> ~/.bashrc
+  echo "sudo service nginx restart" >> ~/.bashrc
 }
 
 ###
@@ -151,7 +157,7 @@ build_tlsh() {
 # Include some alias to work with Atlas
 add_command_alias() {
   echo "Include alias to manage Atlas **************************************** "
-  echo -e "\n# Commands to help with Atlas management"
+  echo -e "\n# Command aliases for Atlas management"
   echo "alias atlas-start='uwsgi --ini /vagrant/atlas.ini'" >> ~/.bashrc
   echo "alias atlas-stop='uwsgi --stop /vagrant/tmp/atlas-master.pid'" >> ~/.bashrc
   echo "alias atlas-migrate='python /vagrant/manage.py makemigrations && python /vagrant/manage.py migrate'" >> ~/.bashrc
