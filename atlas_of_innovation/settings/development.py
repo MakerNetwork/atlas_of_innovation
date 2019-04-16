@@ -4,6 +4,7 @@ from .base import *
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
 
+
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'l^o92!g+^lp459xkndhnc620hutn8lb%fueku1n4pxe+2vch1i'
 
@@ -19,4 +20,8 @@ DEBUG = True
 ALLOWED_HOSTS = ["*"]
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-URL="52.37.166.83/"
+URL="52.37.166.83"
+
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = True
+
